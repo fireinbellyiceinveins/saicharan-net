@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Person One",
+    "image": "/images/person-placeholder.png",
+    "link": "https://example.com"
+  },
+  {
+    "name": "Person Two",
+    "image": "/images/person-placeholder.png",
+    "link": "https://example.com"
+  },
+  {
+    "name": "Person Three",
+    "image": "/images/person-placeholder.png",
+    "link": "https://example.com"
+  },
+  {
+    "name": "Person Four",
+    "image": "/images/person-placeholder.png",
+    "link": "https://example.com"
+  },
+  {
+    "name": "Person Five",
+    "image": "/images/person-placeholder.png",
+    "link": "https://example.com"
+  }
+] 

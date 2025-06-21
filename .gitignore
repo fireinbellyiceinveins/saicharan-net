@@ -1,0 +1,25 @@
+# Remix
+/build
+/public/build
+/.cache
+
+# Dependencies
+/node_modules
+
+# Production
+/build
+/public/build
+
+# Miscellaneous
+.DS_Store
+*.pem
+*.log
+.env
+.env*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
+.output
+.idea
+.vscode/settings.json 
