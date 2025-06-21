@@ -12,7 +12,6 @@
   "dependencies": {
     "@remix-run/node": "^2.0.0",
     "@remix-run/react": "^2.0.0",
-    "@remix-run/vercel": "^2.0.0",
     "gray-matter": "^4.0.3",
     "isbot": "^4",
     "marked": "^9.1.6",
