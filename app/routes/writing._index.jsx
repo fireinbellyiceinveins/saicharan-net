@@ -1,4 +1,4 @@
-import { json } from "@remix-run/cloudflare";
+import { json } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
 import { getWritings } from "../utils/content";
 

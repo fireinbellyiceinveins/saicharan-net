@@ -5,15 +5,14 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev --manual -c \"npm run dev:wrangler\"",
-    "dev:wrangler": "wrangler pages dev ./public",
-    "start": "wrangler pages dev ./public",
+    "dev": "remix dev",
+    "start": "remix-serve ./build/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@remix-run/cloudflare": "^2.0.0",
-    "@remix-run/cloudflare-pages": "^2.0.0",
+    "@remix-run/node": "^2.0.0",
     "@remix-run/react": "^2.0.0",
+    "@remix-run/vercel": "^2.0.0",
     "gray-matter": "^4.0.3",
     "isbot": "^4",
     "marked": "^9.1.6",
@@ -23,15 +22,9 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^2.0.0",
-    "eslint": "^8.56.0",
-    "wrangler": "^3.0.0"
+    "eslint": "^8.56.0"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "overrides": {
-    "react-dom": {
-      "server": "./server.browser.js"
-    }
   }
 }

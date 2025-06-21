@@ -1,4 +1,4 @@
-import { json } from "@remix-run/cloudflare";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getWriting, renderMarkdown } from "../utils/content";
 import invariant from "tiny-invariant";

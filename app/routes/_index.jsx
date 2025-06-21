@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { redirect } from "@remix-run/cloudflare";
+import { redirect } from "@remix-run/node";
 
 export const loader = () => {
   return redirect("/about");
