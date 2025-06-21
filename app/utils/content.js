@@ -1,88 +1,56 @@
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import fs from 'fs';
-import path from 'path';
+import peopleData from '../../content/people.json';
 
-const contentDir = path.join(process.cwd(), 'content');
+const writingsModules = import.meta.glob('../../content/writings/*.md', { as: 'raw', eager: true });
+const projectsModules = import.meta.glob('../../content/projects/*.md', { as: 'raw', eager: true });
+
+const allWritings = Object.entries(writingsModules).map(([path, rawContent]) => {
+  const slug = path.split('/').pop().replace('.md', '');
+  const { data, content } = matter(rawContent);
+  return {
+    slug,
+    title: data.title || slug,
+    date: data.date || new Date().toISOString(),
+    excerpt: data.excerpt || content.substring(0, 150) + '...',
+    content: content,
+    ...data,
+  };
+}).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+const allProjects = Object.entries(projectsModules).map(([path, rawContent]) => {
+  const slug = path.split('/').pop().replace('.md', '');
+  const { data, content } = matter(rawContent);
+  return {
+    slug,
+    title: data.title || slug,
+    date: data.date || new Date().toISOString(),
+    excerpt: data.excerpt || content.substring(0, 150) + '...',
+    content: content,
+    image: data.image,
+    link: data.link,
+    ...data,
+  };
+}).sort((a, b) => new Date(b.date) - new Date(a.date));
 
 export function getWritings() {
-  const writingsDir = path.join(contentDir, 'writings');
-  if (!fs.existsSync(writingsDir)) {
-    return [];
-  }
-  
-  const files = fs.readdirSync(writingsDir);
-  const writings = files
-    .filter(file => file.endsWith('.md'))
-    .map(file => {
-      const filePath = path.join(writingsDir, file);
-      const content = fs.readFileSync(filePath, 'utf8');
-      const { data, content: markdown } = matter(content);
-      const slug = file.replace('.md', '');
-      
-      return {
-        slug,
-        title: data.title || slug,
-        date: data.date || new Date().toISOString(),
-        excerpt: data.excerpt || markdown.substring(0, 150) + '...',
-        content: markdown,
-        ...data
-      };
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-  return writings;
+  return allWritings;
 }
 
 export function getWriting(slug) {
-  const writings = getWritings();
-  return writings.find(writing => writing.slug === slug);
+  return allWritings.find((writing) => writing.slug === slug);
 }
 
 export function getProjects() {
-  const projectsDir = path.join(contentDir, 'projects');
-  if (!fs.existsSync(projectsDir)) {
-    return [];
-  }
-  
-  const files = fs.readdirSync(projectsDir);
-  const projects = files
-    .filter(file => file.endsWith('.md'))
-    .map(file => {
-      const filePath = path.join(projectsDir, file);
-      const content = fs.readFileSync(filePath, 'utf8');
-      const { data, content: markdown } = matter(content);
-      const slug = file.replace('.md', '');
-      
-      return {
-        slug,
-        title: data.title || slug,
-        date: data.date || new Date().toISOString(),
-        excerpt: data.excerpt || markdown.substring(0, 150) + '...',
-        content: markdown,
-        image: data.image,
-        link: data.link,
-        ...data
-      };
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-  return projects;
+  return allProjects;
 }
 
 export function getProject(slug) {
-  const projects = getProjects();
-  return projects.find(project => project.slug === slug);
+  return allProjects.find((project) => project.slug === slug);
 }
 
 export function getPeople() {
-  const peopleFile = path.join(contentDir, 'people.json');
-  if (!fs.existsSync(peopleFile)) {
-    return [];
-  }
-  
-  const content = fs.readFileSync(peopleFile, 'utf8');
-  return JSON.parse(content);
+  return peopleData;
 }
 
 export function renderMarkdown(content) {
