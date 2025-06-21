@@ -1,15 +1,12 @@
-import { createRequestHandler } from "@remix-run/cloudflare";
-import { logDevReady } from "@remix-run/cloudflare";
+import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
 import * as build from "@remix-run/dev/server-build";
 
-const remix = createRequestHandler(build, process.env.NODE_ENV);
+const handleRequest = createPagesFunctionHandler({
+  build,
+  mode: process.env.NODE_ENV,
+  getLoadContext: (context) => context.env,
+});
 
-if (process.env.NODE_ENV === "development") {
-  logDevReady(build);
-}
-
-export default {
-  async fetch(request, env, ctx) {
-    return remix(request, env, ctx);
-  },
-}; 
+export function onRequest(context) {
+  return handleRequest(context);
+} 
