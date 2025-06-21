@@ -5,6 +5,8 @@ export default {
   serverBuildPath: "functions/[[path]].js",
   serverModuleFormat: "esm",
   serverDependenciesToBundle: "all",
+  serverConditions: ["worker", "browser"],
+  serverMainFields: ["browser", "module", "main"],
   future: {
     v2_errorBoundary: true,
     v2_headers: true,
