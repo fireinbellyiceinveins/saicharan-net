@@ -1,6 +1,6 @@
 import { createRequestHandler } from "@remix-run/cloudflare";
 import { logDevReady } from "@remix-run/cloudflare";
-import * as build from "./build/index.js";
+import * as build from "@remix-run/dev/server-build";
 
 const remix = createRequestHandler(build, process.env.NODE_ENV);
 
