@@ -4,6 +4,7 @@ export default {
   server: "./server.js",
   serverBuildPath: "functions/[[path]].js",
   serverModuleFormat: "esm",
+  serverDependenciesToBundle: "all",
   future: {
     v2_errorBoundary: true,
     v2_headers: true,
